@@ -295,6 +295,9 @@ body {
     width: 400px;  /* Fixed width instead of max-width */
     margin-bottom: 2rem;
     box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
 }
 
 /* Update Gift Screen Styles */
@@ -357,6 +360,9 @@ body {
     box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
     animation: fadeIn 1s ease-in;
     text-align: center;
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
 }
 
 .letter-content h2 {

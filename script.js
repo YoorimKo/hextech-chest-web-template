@@ -61,8 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle chest opening
     openButton.addEventListener('click', () => {
-        playClickSound();     // Play click sound immediately
-        playOpenSound();      // Play open sound with delay
+        playBackgroundMusic();  // Start music on first click
+        playClickSound();
+        playOpenSound();
         openButton.style.display = 'none';
         loopVideo.classList.remove('active');
         outroVideo.classList.add('active');
@@ -199,10 +200,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 370);  // Adjusted from 360ms to 370ms
     }
 
-    // Add background music function
+    // Update the background music function
     function playBackgroundMusic() {
         const bgMusic = document.getElementById('backgroundMusic');
-        bgMusic.volume = 0.5;  // Set to 50% volume
-        bgMusic.play().catch(error => console.log('Background music play prevented'));
+        bgMusic.volume = 0.5;
+        
+        // Try to play and handle any autoplay restrictions
+        const playPromise = bgMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Autoplay prevented, waiting for user interaction');
+                // Add a one-time click handler to start music
+                document.addEventListener('click', () => {
+                    bgMusic.play().catch(error => console.log('Background music play prevented'));
+                }, { once: true });
+            });
+        }
     }
+
+    // Add this to handle card tilt effect
+    function initCardTilt() {
+        const card = document.querySelector('.gift-card');
+        const letterCard = document.querySelector('.letter-content');
+        
+        [card, letterCard].forEach(element => {
+            if (!element) return;
+            
+            element.addEventListener('mousemove', handleTilt);
+            element.addEventListener('mouseleave', resetTilt);
+        });
+    }
+
+    function handleTilt(e) {
+        const card = e.currentTarget;
+        const cardRect = card.getBoundingClientRect();
+        const centerX = cardRect.left + cardRect.width / 2;
+        const centerY = cardRect.top + cardRect.height / 2;
+        const mouseX = e.clientX - centerX;
+        const mouseY = e.clientY - centerY;
+        
+        // Calculate rotation (max 10 degrees)
+        const rotateX = (mouseY / (cardRect.height / 2)) * -10;
+        const rotateY = (mouseX / (cardRect.width / 2)) * 10;
+        
+        // Apply transform with smooth transition
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+
+    function resetTilt(e) {
+        const card = e.currentTarget;
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    }
+
+    // Add this after the gift card is shown
+    initCardTilt();
 }); 
