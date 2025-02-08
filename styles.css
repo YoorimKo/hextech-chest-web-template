@@ -425,13 +425,13 @@ body {
     background: linear-gradient(to bottom, #FF4D6D, #FF2E63);
     border: 2px solid #FFB3C1;
     color: white;
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+    padding: 0.7rem 1.8rem;  /* Reduced from 0.8rem 2rem */
+    font-size: 0.9rem;      /* Reduced from 1rem */
     cursor: pointer;
     font-family: 'Beaufort for LOL', serif;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border-radius: 20px;
+    border-radius: 18px;    /* Reduced from 20px */
     transition: all 0.2s ease;
     box-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
 }

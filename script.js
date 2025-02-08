@@ -85,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const letter = document.querySelector('.letter');
 
     addToLootButton.addEventListener('click', () => {
+        playClickSound();        // Play click sound immediately
+        playLootOpenSound();     // Play open sound with shorter delay
         giftCardContainer.style.animation = 'fadeOut 1s ease-out forwards';
         setTimeout(() => {
             giftCardContainer.classList.add('hidden');
@@ -186,6 +188,15 @@ document.addEventListener('DOMContentLoaded', () => {
             sound.currentTime = 0;
             sound.play().catch(error => console.log('Open sound play prevented'));
         }, 630);  // Reduced from 730ms to 630ms
+    }
+
+    // Update the loot button open sound function with adjusted delay
+    function playLootOpenSound() {
+        setTimeout(() => {
+            const sound = document.getElementById('openSound');
+            sound.currentTime = 0;
+            sound.play().catch(error => console.log('Open sound play prevented'));
+        }, 370);  // Adjusted from 360ms to 370ms
     }
 
     // Add background music function
