@@ -19,18 +19,22 @@ body {
 .container {
     width: 100vw;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--lol-dark);
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Logo Screen */
 .logo-screen {
-    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -39,6 +43,7 @@ body {
     background-color: var(--lol-dark);
     flex-direction: column;
     gap: 2rem;
+    z-index: 10;
 }
 
 .lol-logo {
@@ -49,11 +54,16 @@ body {
 
 /* Hextech Chest Screen */
 .chest-screen {
-    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    justify-content: center;
+    background-color: var(--lol-dark);
 }
 
 .hextech-chest {
@@ -66,32 +76,8 @@ body {
     transform: scale(1.05);
 }
 
-/* Common button styles for both Open and Add to Loot buttons */
-.button-base {
-    background: linear-gradient(to bottom, #785B28 0%, #463714 100%);
-    border: 2px solid #C8AA6E;
-    color: #CDBE91;
-    text-transform: uppercase;
-    font-family: 'Beaufort for LOL', serif;
-    letter-spacing: 1px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 0.7rem 2rem;  /* Reduced size from 1rem to 0.7rem */
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
-
-.button-base:hover {
-    background: linear-gradient(to bottom, #C89B3C 0%, #785B28 100%);
-    border-color: #F0E6D2;
-    color: #F0E6D2;
-    transform: scale(1.05);
-}
-
-/* Apply base styles to both buttons */
-.open-button {
-    opacity: 0;
+/* Common button styles for LoL theme */
+.button-styles {
     background: linear-gradient(to bottom, #1E2328, #433D2B);
     border: 2px solid;
     border-image: linear-gradient(to bottom, #C8AA6E, #7A5C28) 1;
@@ -103,13 +89,31 @@ body {
     font-family: 'Beaufort for LOL', serif;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin: 0 auto;
     position: relative;
     box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-/* Hover state */
+/* Open button */
+.open-button {
+    opacity: 0;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, #1E2328, #433D2B);
+    border: 2px solid;
+    border-image: linear-gradient(to bottom, #C8AA6E, #7A5C28) 1;
+    color: #CDBE91;
+    padding: 0.8rem 2.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Beaufort for LOL', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
 .open-button:hover {
     background: linear-gradient(to bottom, #1E2328, #554831);
     border-image: linear-gradient(to bottom, #F0E6D2, #C8AA6E) 1;
@@ -117,8 +121,40 @@ body {
     box-shadow: 0 0 15px rgba(200, 170, 110, 0.4);
 }
 
-/* Active/Clicked state */
 .open-button:active {
+    background: linear-gradient(to bottom, #1E2328, #3C3424);
+    border-image: linear-gradient(to bottom, #A89D8B, #785A28) 1;
+    color: #A89D8B;
+    box-shadow: 0 0 8px rgba(200, 170, 110, 0.2);
+    transform: scale(0.98);
+}
+
+/* Add to Loot button */
+.add-to-loot-button {
+    background: linear-gradient(to bottom, #1E2328, #433D2B);
+    border: 2px solid;
+    border-image: linear-gradient(to bottom, #C8AA6E, #7A5C28) 1;
+    color: #CDBE91;
+    padding: 0.8rem 2.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Beaufort for LOL', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.add-to-loot-button:hover {
+    background: linear-gradient(to bottom, #1E2328, #554831);
+    border-image: linear-gradient(to bottom, #F0E6D2, #C8AA6E) 1;
+    color: #F0E6D2;
+    box-shadow: 0 0 15px rgba(200, 170, 110, 0.4);
+}
+
+.add-to-loot-button:active {
     background: linear-gradient(to bottom, #1E2328, #3C3424);
     border-image: linear-gradient(to bottom, #A89D8B, #785A28) 1;
     color: #A89D8B;
@@ -184,12 +220,8 @@ body {
 }
 
 @keyframes loading {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 100%;
-    }
+    0% { width: 0; }
+    100% { width: 100%; }
 }
 
 .chest-video-container {
@@ -241,34 +273,127 @@ body {
     width: 100%;
 }
 
-/* Gift Card Styles */
+/* Gift Card Container Styles */
 .gift-card-container {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;  /* Full viewport height */
+    width: 100%;
     animation: fadeIn 1s ease-in;
 }
 
-.gift-card-image {
-    max-width: 400px;
-    margin-bottom: 2rem;
-}
-
-/* Letter Styles */
-.letter {
-    max-width: 600px;
+/* Update Gift Card Styles */
+.gift-card {
+    background: linear-gradient(45deg, #1E2328, #2A2A2A);
+    border: 3px solid #C8AA6E;
+    border-radius: 10px;
     padding: 2rem;
-    background: rgba(200, 170, 110, 0.1);
-    border: 2px solid var(--lol-gold);
-    animation: fadeIn 1s ease-in;
+    width: 400px;  /* Fixed width instead of max-width */
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
 }
 
-.letter h2 {
-    color: var(--lol-gold);
+/* Update Gift Screen Styles */
+.gift-screen {
+    position: fixed;  /* Full screen positioning */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--lol-dark);
+}
+
+.gift-card-header {
+    text-align: center;
     margin-bottom: 1.5rem;
-    font-size: 2rem;
 }
 
-.letter p {
-    color: var(--lol-gold);
-    line-height: 1.6;
+.gift-card-logo {
+    max-width: 150px;
+}
+
+.gift-card-content {
+    text-align: center;
+}
+
+.gift-card-content h3 {
+    color: #C8AA6E;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.gift-code {
+    background: rgba(200, 170, 110, 0.1);
+    padding: 1rem;
+    border: 1px solid #C8AA6E;
+    color: #F0E6D2;
+    font-family: monospace;
     font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin: 1rem 0;
+}
+
+.gift-note {
+    color: #CDBE91;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Letter content styles */
+.letter-content {
+    background: linear-gradient(45deg, #1E2328, #2A2A2A);
+    border: 3px solid #C8AA6E;
+    border-radius: 10px;
+    padding: 2.5rem;
+    width: 500px;
+    box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+    animation: fadeIn 1s ease-in;
+    text-align: center;
+}
+
+.letter-content h2 {
+    color: #C8AA6E;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.letter-content p {
+    color: #CDBE91;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.letter-image {
+    max-width: 180px;
+    margin-top: 1.5rem;
+    animation: bounce 2s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(200, 170, 110, 0.3));
+}
+
+/* Keep the existing letter container and animation styles */
+.letter-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--lol-dark);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 } 
