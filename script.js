@@ -179,13 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', playClickSound);
     });
 
-    // Update the open sound function to remove playback speed
+    // Update the open sound function with shorter delay
     function playOpenSound() {
         setTimeout(() => {
             const sound = document.getElementById('openSound');
             sound.currentTime = 0;
             sound.play().catch(error => console.log('Open sound play prevented'));
-        }, 730);
+        }, 630);  // Reduced from 730ms to 630ms
     }
 
     // Add background music function

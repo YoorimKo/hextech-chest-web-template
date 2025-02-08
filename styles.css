@@ -224,10 +224,12 @@ body {
     100% { width: 100%; }
 }
 
+/* Update chest video positioning */
 .chest-video-container {
     position: relative;
-    width: 450px;  /* Same as previous chest image size */
+    width: 450px;
     margin-bottom: 2rem;
+    margin-left: -30px;  /* Increased from -10px to -30px */
 }
 
 .chest-video {
@@ -256,21 +258,21 @@ body {
     text-transform: uppercase;
 }
 
-/* Add specific size control for the outro video */
-#chestOutro.active {
-    display: block;
-    opacity: 1;
-    width: 200%;  /* Make the video twice as large */
-    margin-left: -50%;  /* Center the enlarged video */
-    margin-top: -25%;  /* Adjust vertical position */
-}
-
 /* Keep original size for intro and loop videos */
 #chestIntro.active,
 #chestLoop.active {
     display: block;
     opacity: 1;
     width: 100%;
+}
+
+/* Add specific size control for the outro video */
+#chestOutro.active {
+    display: block;
+    opacity: 1;
+    width: 200%;
+    margin-left: calc(-50% - 30px);  /* Adjusted from -10px to -30px */
+    margin-top: -25%;
 }
 
 /* Gift Card Container Styles */
