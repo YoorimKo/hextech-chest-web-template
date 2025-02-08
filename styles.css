@@ -350,12 +350,12 @@ body {
     margin-top: 1rem;
 }
 
-/* Letter content styles */
+/* Update letter content styles */
 .letter-content {
     background: linear-gradient(45deg, #1E2328, #2A2A2A);
     border: 3px solid #C8AA6E;
     border-radius: 10px;
-    padding: 2.5rem;
+    padding: 3.5rem 2.5rem;  /* More vertical padding, less horizontal padding */
     width: 500px;
     box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
     animation: fadeIn 1s ease-in;
@@ -367,23 +367,44 @@ body {
 
 .letter-content h2 {
     color: #C8AA6E;
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: 2px;
+    font-size: 2.2rem;  /* Increased from 1.8rem */
+    margin-bottom: 3rem;  /* Increased spacing after title */
+    letter-spacing: 3px;
     text-transform: uppercase;
 }
 
 .letter-content p {
     color: #CDBE91;
-    line-height: 1.8;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    line-height: 2;    /* Reduced from 2.2 to 2 */
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    padding: 0 0.5rem;
+}
+
+.letter-content p b {
+    font-size: 1.5rem;  /* Larger size for the main question */
+    color: #F0E6D2;  /* Brighter color */
+    display: block;  /* Force to new line */
+    margin-bottom: 2.5rem;  /* Increased spacing after question */
+    padding: 0;  /* Remove padding for the bold text */
+}
+
+.letter-content h3 {
+    color: #C8AA6E;
+    font-size: 1.6rem;
+    margin-bottom: 2.5rem;  /* Increased spacing after signature */
+    letter-spacing: 2px;
+}
+
+.letter-content br {
+    display: block;
+    margin: 0.8rem 0;  /* Reduced from 1.2rem to 0.8rem */
+    content: "";
 }
 
 .letter-image {
-    max-width: 180px;
-    margin-top: 1.5rem;
+    max-width: 200px;
+    margin-top: 1.5rem;  /* Slightly reduced top margin */
     animation: bounce 2s infinite ease-in-out;
     filter: drop-shadow(0 0 10px rgba(200, 170, 110, 0.3));
 }
@@ -470,6 +491,33 @@ body {
     }
     100% {
         transform: translateY(-120vh) rotate(var(--rotation));
+        opacity: 0;
+    }
+}
+
+/* Special emote styles */
+.special-emote {
+    z-index: 101;
+    animation: special-float 4s ease-out forwards !important;
+    border-radius: 10px;  /* Optional: rounded corners */
+    filter: drop-shadow(0 0 20px rgba(255, 77, 109, 0.5));  /* Add a pink glow effect */
+}
+
+@keyframes special-float {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        transform: translateX(-50%) translateY(-30vh) scale(1);
+        opacity: 1;
+    }
+    80% {
+        transform: translateX(-50%) translateY(-50vh) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-80vh) scale(0.8);
         opacity: 0;
     }
 } 

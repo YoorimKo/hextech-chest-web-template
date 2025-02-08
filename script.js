@@ -84,38 +84,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const addToLootButton = document.querySelector('.add-to-loot-button');
     const giftCardContainer = document.querySelector('.gift-card-container');
     const letter = document.querySelector('.letter');
+    const giftCode = document.querySelector('.gift-code');
 
     addToLootButton.addEventListener('click', () => {
-        playClickSound();        // Play click sound immediately
-        playLootOpenSound();     // Play open sound with shorter delay
-        giftCardContainer.style.animation = 'fadeOut 1s ease-out forwards';
-        setTimeout(() => {
-            giftCardContainer.classList.add('hidden');
-            letter.classList.remove('hidden');
-        }, 1000);
+        playClickSound();
+        playLootOpenSound();
+
+        // Copy gift code to clipboard
+        navigator.clipboard.writeText(giftCode.textContent)
+            .then(() => {
+                // Visual feedback that code was copied
+                addToLootButton.textContent = 'Copied!';
+                
+                // Transition to letter after copying
+                giftCardContainer.style.animation = 'fadeOut 1s ease-out forwards';
+                setTimeout(() => {
+                    giftCardContainer.classList.add('hidden');
+                    letter.classList.remove('hidden');
+                    // Reset button text
+                    setTimeout(() => {
+                        addToLootButton.textContent = 'Add to Loot';
+                    }, 1000);
+                }, 1000);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+            });
     });
 
     // Add this to your existing JavaScript
     const loveButton = document.querySelector('.love-button');
     let isAnimating = false;
+    let loveClickCount = 0;
+    const EASTER_EGG_TRIGGER = 5; // Show special image after this many clicks
 
     loveButton.addEventListener('click', () => {
         if (isAnimating) return;
         isAnimating = true;
         loveButton.disabled = true;
         
-        // Create 30 floating emotes
-        for (let i = 0; i < 30; i++) {
-            setTimeout(() => {
-                createFloatingEmote();
-            }, i * 150); // Reduced delay for more emotes
+        loveClickCount++;
+
+        // Check for Easter egg condition
+        if (loveClickCount > EASTER_EGG_TRIGGER) {
+            // Create single special emote
+            const specialEmote = document.createElement('img');
+            specialEmote.className = 'floating-emote special-emote';
+            specialEmote.src = 'asset/HEIF 이미지.jpg';  // Fixed image path
+            
+            // Center the special emote
+            specialEmote.style.left = '50%';
+            specialEmote.style.transform = 'translateX(-50%)';
+            specialEmote.style.width = '300px';
+            specialEmote.style.height = '300px';
+            specialEmote.style.objectFit = 'contain';
+            
+            document.body.appendChild(specialEmote);
+            
+            // Reset counter
+            loveClickCount = 0;
+        } else {
+            // Normal emote behavior
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createFloatingEmote();
+                }, i * 150);
+            }
         }
         
-        // Re-enable button after all animations complete
+        // Re-enable button after animation
         setTimeout(() => {
             isAnimating = false;
             loveButton.disabled = false;
-        }, 6000); // Increased wait time for more emotes
+        }, 6000);
     });
 
     function createFloatingEmote() {
