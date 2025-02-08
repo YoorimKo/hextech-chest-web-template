@@ -295,7 +295,7 @@ body {
     width: 400px;  /* Fixed width instead of max-width */
     margin-bottom: 2rem;
     box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.3s ease-out;
     transform-style: preserve-3d;
     transform: perspective(1000px);
 }
@@ -360,7 +360,7 @@ body {
     box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
     animation: fadeIn 1s ease-in;
     text-align: center;
-    transition: transform 0.1s ease-out;
+    transition: transform 0.3s ease-out;
     transform-style: preserve-3d;
     transform: perspective(1000px);
 }
@@ -520,4 +520,84 @@ body {
         transform: translateX(-50%) translateY(-80vh) scale(0.8);
         opacity: 0;
     }
+}
+
+/* Card flip container styles */
+.card-wrapper {
+    position: relative;
+    width: 500px;
+    height: 700px;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.card-wrapper.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* Creator content styles */
+.creator-content {
+    background: linear-gradient(45deg, #1E2328, #2A2A2A);
+    border: 3px solid #C8AA6E;
+    border-radius: 10px;
+    padding: 3.5rem 2.5rem;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+    text-align: center;
+}
+
+.creator-content h2 {
+    color: #C8AA6E;
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.creator-info {
+    color: #CDBE91;
+    line-height: 2;
+    font-size: 1.3rem;
+    margin: 2rem 0;
+}
+
+.creator-info p {
+    margin: 1.5rem 0;
+}
+
+/* Flip button styles */
+.flip-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(200, 170, 110, 0.5));
+}
+
+.flip-button:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(200, 170, 110, 0.8));
+}
+
+.flip-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 } 

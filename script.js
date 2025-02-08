@@ -275,18 +275,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleTilt(e) {
         const card = e.currentTarget;
+        const isLetterContent = card.classList.contains('letter-content');
+        const wrapper = isLetterContent ? card.closest('.card-wrapper') : null;
         const cardRect = card.getBoundingClientRect();
         const centerX = cardRect.left + cardRect.width / 2;
         const centerY = cardRect.top + cardRect.height / 2;
         const mouseX = e.clientX - centerX;
         const mouseY = e.clientY - centerY;
         
-        // Calculate rotation (max 10 degrees)
-        const rotateX = (mouseY / (cardRect.height / 2)) * -10;
-        const rotateY = (mouseX / (cardRect.width / 2)) * 10;
+        const baseRotation = 6;
+        const dampingFactor = 0.7;
         
-        // Apply transform with smooth transition
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        const distanceX = Math.abs(mouseX) / (cardRect.width / 2);
+        const distanceY = Math.abs(mouseY) / (cardRect.height / 2);
+        
+        const damping = dampingFactor * (1 / (1 + Math.max(distanceX, distanceY)));
+        const maxRotationX = mouseY < 0 ? baseRotation * 1.5 : baseRotation;
+        
+        const rotateX = -maxRotationX * (mouseY / (cardRect.height / 2)) * damping;
+        const rotateY = baseRotation * (mouseX / (cardRect.width / 2)) * damping;
+        
+        requestAnimationFrame(() => {
+            if (isLetterContent && wrapper) {
+                // For letter content, combine with existing flip transform
+                const isFlipped = wrapper.classList.contains('flipped');
+                const flipTransform = isFlipped ? 'rotateY(180deg)' : '';
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${flipTransform}`;
+            } else {
+                // For gift card, just apply tilt
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
+        });
     }
 
     function resetTilt(e) {
@@ -296,4 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add this after the gift card is shown
     initCardTilt();
+
+    // Add flip functionality
+    const flipButtons = document.querySelectorAll('.flip-button');
+    const cardWrapper = document.querySelector('.card-wrapper');
+
+    flipButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            playClickSound();
+            cardWrapper.classList.toggle('flipped');
+        });
+    });
 }); 
