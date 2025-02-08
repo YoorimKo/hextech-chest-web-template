@@ -84,4 +84,66 @@ document.addEventListener('DOMContentLoaded', () => {
             letter.classList.remove('hidden');
         }, 1000);
     });
+
+    // Add this to your existing JavaScript
+    const loveButton = document.querySelector('.love-button');
+    let isAnimating = false;
+
+    loveButton.addEventListener('click', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+        loveButton.disabled = true;
+        
+        // Create 30 floating emotes
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                createFloatingEmote();
+            }, i * 150); // Reduced delay for more emotes
+        }
+        
+        // Re-enable button after all animations complete
+        setTimeout(() => {
+            isAnimating = false;
+            loveButton.disabled = false;
+        }, 6000); // Increased wait time for more emotes
+    });
+
+    function createFloatingEmote() {
+        const emote = document.createElement('img');
+        emote.className = 'floating-emote';
+        
+        // Array of all emote images
+        const images = [
+            'asset/event_snowdown_poro_love_inventory.png',
+            'asset/penguin_love_kiss_inventory.png',
+            'asset/penguin_love_cheerful_inventory.png',
+            'asset/em_pcs_psg_show_me_your_love_inventory.png',
+            'asset/em_events_valentines_iloveyou_01_inventory.png',
+            'asset/em_love_ya_inventory.png',
+            'asset/ahri_love_wink_02_inventory.png',
+            'asset/4610_lec_fnc__thank_you_next_inventory.accessories_14_17.png',
+            'asset/4453_heartsteel_love_inventory.png',
+            'asset/4600_cblol_kbm__hang_love_inventory.accessories_14_17.png'
+        ];
+        emote.src = images[Math.floor(Math.random() * images.length)];
+        
+        // Random position, rotation, and size variation
+        const randomLeft = Math.random() * window.innerWidth;
+        const randomRotation = Math.random() * 360;
+        const randomSize = 48 + Math.random() * 32; // Random size between 48px and 80px
+        const randomDelay = Math.random() * 0.5; // Random delay up to 0.5s
+        
+        emote.style.left = `${randomLeft}px`;
+        emote.style.setProperty('--rotation', `${randomRotation}deg`);
+        emote.style.width = `${randomSize}px`;
+        emote.style.height = `${randomSize}px`;
+        emote.style.animationDelay = `${randomDelay}s`;
+        
+        document.body.appendChild(emote);
+        
+        // Remove element after animation
+        emote.addEventListener('animationend', () => {
+            emote.remove();
+        });
+    }
 }); 
