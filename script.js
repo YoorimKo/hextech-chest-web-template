@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chestScreen.classList.remove('hidden');
             chestScreen.style.animation = 'fadeIn 1s ease-in';
         }, 1000);
-    }, 3500); // Increased to 3.5s to ensure loading bar completes
+    }, 8500);  // Changed from 3500 to 8500 to match the 8s loading animation
 
     // Handle chest opening
     openButton.addEventListener('click', () => {
