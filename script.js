@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start sequence with logo and loading bar
     setTimeout(() => {
         logoScreen.style.animation = 'fadeOut 1s ease-out forwards';
+        playBackgroundMusic();  // Start the background music
         setTimeout(() => {
             logoScreen.classList.add('hidden');
             chestScreen.classList.remove('hidden');
@@ -47,6 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     loopVideo.muted = true;
                     loopVideo.play();
                     openButton.classList.add('show');
+                    
+                    // Add sound events after button is visible
+                    openButton.addEventListener('mouseenter', playHoverSound);
+                    openButton.addEventListener('click', playClickSound);
                 }, { once: true });
             }).catch(error => {
                 console.error('Video play error:', error);
@@ -56,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle chest opening
     openButton.addEventListener('click', () => {
+        playClickSound();     // Play click sound immediately
+        playOpenSound();      // Play open sound with delay
         openButton.style.display = 'none';
         loopVideo.classList.remove('active');
         outroVideo.classList.add('active');
@@ -145,5 +152,46 @@ document.addEventListener('DOMContentLoaded', () => {
         emote.addEventListener('animationend', () => {
             emote.remove();
         });
+    }
+
+    // Update the sound functions
+    function playHoverSound(event) {
+        // Don't play sound if the button is disabled
+        if (event.target.disabled) return;
+        
+        const sound = document.getElementById('hoverSound');
+        sound.currentTime = 0;
+        sound.playbackRate = 1.0;
+        sound.play().catch(error => console.log('Hover sound play prevented'));
+    }
+
+    function playClickSound() {
+        const sound = document.getElementById('clickSound');
+        sound.currentTime = 0;
+        sound.playbackRate = 1.5;  // Faster playback for click
+        sound.play().catch(error => console.log('Click sound play prevented'));
+    }
+
+    // Add sound events for other buttons immediately
+    const otherButtons = [addToLootButton, loveButton];
+    otherButtons.forEach(button => {
+        button.addEventListener('mouseenter', playHoverSound);
+        button.addEventListener('click', playClickSound);
+    });
+
+    // Update the open sound function to remove playback speed
+    function playOpenSound() {
+        setTimeout(() => {
+            const sound = document.getElementById('openSound');
+            sound.currentTime = 0;
+            sound.play().catch(error => console.log('Open sound play prevented'));
+        }, 730);
+    }
+
+    // Add background music function
+    function playBackgroundMusic() {
+        const bgMusic = document.getElementById('backgroundMusic');
+        bgMusic.volume = 0.5;  // Set to 50% volume
+        bgMusic.play().catch(error => console.log('Background music play prevented'));
     }
 }); 
