@@ -19,18 +19,33 @@
 
         <!-- Hextech Chest Screen -->
         <div class="chest-screen hidden">
-            <img src="asset/hextech-chest.png" alt="Hextech Chest" class="hextech-chest">
+            <!-- Replace static image with video elements -->
+            <div class="chest-video-container">
+                <video id="chestIntro" class="chest-video" preload="auto" playsinline>
+                    <source src="asset/open_cm_intro.webm" type="video/webm">
+                </video>
+                <video id="chestLoop" class="chest-video" preload="auto" playsinline loop>
+                    <source src="asset/open_cm_loop.webm" type="video/webm">
+                </video>
+                <video id="chestOutro" class="chest-video" preload="auto" playsinline>
+                    <source src="asset/open_cm_outro.webm" type="video/webm">
+                </video>
+            </div>
             <button class="open-button">Open</button>
         </div>
 
         <!-- Gift Reveal Screen -->
         <div class="gift-screen hidden">
-            <div class="letter">
+            <!-- Gift Card Screen -->
+            <div class="gift-card-container">
+                <img src="asset/gift-card.webp" alt="Gift Card" class="gift-card-image">
+                <button class="add-to-loot-button">Add to Loot</button>
+            </div>
+            
+            <!-- Letter Screen -->
+            <div class="letter hidden">
                 <h2>Dear [Boyfriend's Name],</h2>
                 <p>Your special message here...</p>
-                <div class="gift-card">
-                    <!-- Gift card code here -->
-                </div>
             </div>
         </div>
     </div>

@@ -42,7 +42,7 @@ body {
 }
 
 .lol-logo {
-    max-width: 80%;
+    max-width: 120%;
     animation: fadeIn 1s ease-in;
     margin-top: -5%;
 }
@@ -50,10 +50,14 @@ body {
 /* Hextech Chest Screen */
 .chest-screen {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 .hextech-chest {
-    max-width: 300px;
+    max-width: 450px;
     margin-bottom: 2rem;
     transition: transform 0.3s ease;
 }
@@ -62,22 +66,74 @@ body {
     transform: scale(1.05);
 }
 
-.open-button {
-    background-color: var(--lol-gold);
-    color: var(--lol-dark);
-    border: none;
-    padding: 1rem 3rem;
-    font-size: 1.2rem;
+/* Common button styles for both Open and Add to Loot buttons */
+.button-base {
+    background: linear-gradient(to bottom, #785B28 0%, #463714 100%);
+    border: 2px solid #C8AA6E;
+    color: #CDBE91;
+    text-transform: uppercase;
+    font-family: 'Beaufort for LOL', serif;
+    letter-spacing: 1px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    padding: 0.7rem 2rem;  /* Reduced size from 1rem to 0.7rem */
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.button-base:hover {
+    background: linear-gradient(to bottom, #C89B3C 0%, #785B28 100%);
+    border-color: #F0E6D2;
+    color: #F0E6D2;
+    transform: scale(1.05);
+}
+
+/* Apply base styles to both buttons */
+.open-button {
+    opacity: 0;
+    background: linear-gradient(to bottom, #1E2328, #433D2B);
+    border: 2px solid;
+    border-image: linear-gradient(to bottom, #C8AA6E, #7A5C28) 1;
+    color: #CDBE91;
+    padding: 0.8rem 2.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
     font-family: 'Beaufort for LOL', serif;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
+/* Hover state */
 .open-button:hover {
-    background-color: var(--lol-blue);
-    transform: scale(1.1);
+    background: linear-gradient(to bottom, #1E2328, #554831);
+    border-image: linear-gradient(to bottom, #F0E6D2, #C8AA6E) 1;
+    color: #F0E6D2;
+    box-shadow: 0 0 15px rgba(200, 170, 110, 0.4);
+}
+
+/* Active/Clicked state */
+.open-button:active {
+    background: linear-gradient(to bottom, #1E2328, #3C3424);
+    border-image: linear-gradient(to bottom, #A89D8B, #785A28) 1;
+    color: #A89D8B;
+    box-shadow: 0 0 8px rgba(200, 170, 110, 0.2);
+    transform: scale(0.98);
+}
+
+/* Keep the animation */
+@keyframes buttonFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.open-button.show {
+    animation: buttonFadeIn 1s ease-in forwards;
 }
 
 /* Animations */
@@ -94,7 +150,7 @@ body {
 /* Loading Bar Styles */
 .loading-container {
     position: absolute;
-    bottom: 20%;
+    bottom: calc(20% + 20px);
     width: 300px;
     text-align: center;
 }
@@ -134,4 +190,85 @@ body {
     100% {
         width: 100%;
     }
+}
+
+.chest-video-container {
+    position: relative;
+    width: 450px;  /* Same as previous chest image size */
+    margin-bottom: 2rem;
+}
+
+.chest-video {
+    width: 100%;
+    display: none;
+    visibility: visible;
+}
+
+.chest-video.active {
+    display: block;
+    opacity: 1;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-color: var(--lol-gold);
+    color: var(--lol-dark);
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-family: 'Beaufort for LOL', serif;
+    text-transform: uppercase;
+}
+
+/* Add specific size control for the outro video */
+#chestOutro.active {
+    display: block;
+    opacity: 1;
+    width: 200%;  /* Make the video twice as large */
+    margin-left: -50%;  /* Center the enlarged video */
+    margin-top: -25%;  /* Adjust vertical position */
+}
+
+/* Keep original size for intro and loop videos */
+#chestIntro.active,
+#chestLoop.active {
+    display: block;
+    opacity: 1;
+    width: 100%;
+}
+
+/* Gift Card Styles */
+.gift-card-container {
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+}
+
+.gift-card-image {
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+
+/* Letter Styles */
+.letter {
+    max-width: 600px;
+    padding: 2rem;
+    background: rgba(200, 170, 110, 0.1);
+    border: 2px solid var(--lol-gold);
+    animation: fadeIn 1s ease-in;
+}
+
+.letter h2 {
+    color: var(--lol-gold);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.letter p {
+    color: var(--lol-gold);
+    line-height: 1.6;
+    font-size: 1.2rem;
 } 
