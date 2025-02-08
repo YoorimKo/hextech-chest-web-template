@@ -1,0 +1,137 @@
+:root {
+    --lol-gold: #C8AA6E;
+    --lol-blue: #0AC8B9;
+    --lol-dark: #010A13;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--lol-dark);
+    font-family: 'Beaufort for LOL', serif;
+    color: var(--lol-gold);
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Logo Screen */
+.logo-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--lol-dark);
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.lol-logo {
+    max-width: 80%;
+    animation: fadeIn 1s ease-in;
+    margin-top: -5%;
+}
+
+/* Hextech Chest Screen */
+.chest-screen {
+    text-align: center;
+}
+
+.hextech-chest {
+    max-width: 300px;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.hextech-chest:hover {
+    transform: scale(1.05);
+}
+
+.open-button {
+    background-color: var(--lol-gold);
+    color: var(--lol-dark);
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Beaufort for LOL', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.open-button:hover {
+    background-color: var(--lol-blue);
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Loading Bar Styles */
+.loading-container {
+    position: absolute;
+    bottom: 20%;
+    width: 300px;
+    text-align: center;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(200, 170, 110, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: var(--lol-gold);
+    animation: loading 3s ease-out forwards;
+}
+
+.loading-text {
+    color: var(--lol-gold);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+} 
