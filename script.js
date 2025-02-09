@@ -125,31 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         loveClickCount++;
 
-        // Check for Easter egg condition
-        if (loveClickCount > EASTER_EGG_TRIGGER) {
-            // Create single special emote
-            const specialEmote = document.createElement('img');
-            specialEmote.className = 'floating-emote special-emote';
-            specialEmote.src = 'asset/HEIF 이미지.jpg';  // Fixed image path
-            
-            // Center the special emote
-            specialEmote.style.left = '50%';
-            specialEmote.style.transform = 'translateX(-50%)';
-            specialEmote.style.width = '300px';
-            specialEmote.style.height = '300px';
-            specialEmote.style.objectFit = 'contain';
-            
-            document.body.appendChild(specialEmote);
-            
-            // Reset counter
-            loveClickCount = 0;
-        } else {
-            // Normal emote behavior
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    createFloatingEmote();
-                }, i * 150);
-            }
+        // Normal emote behavior
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                createFloatingEmote();
+            }, i * 150);
         }
         
         // Re-enable button after animation
@@ -326,4 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cardWrapper.classList.toggle('flipped');
         });
     });
+
+    function handleLoveClick() {
+        const loveCount = parseInt(localStorage.getItem('loveCount') || '0');
+        localStorage.setItem('loveCount', loveCount + 1);
+        updateLoveCount();
+    }
 }); 

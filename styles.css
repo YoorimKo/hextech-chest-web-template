@@ -52,6 +52,12 @@ body {
     margin-top: -5%;
 }
 
+.logo-screen img {
+    width: calc(300px * 1.6);  /* Increased from 300px */
+    height: auto;
+    margin-bottom: 20px;
+}
+
 /* Hextech Chest Screen */
 .chest-screen {
     position: absolute;
