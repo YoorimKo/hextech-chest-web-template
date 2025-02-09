@@ -391,7 +391,7 @@ body {
     font-size: 1.5rem;  /* Larger size for the main question */
     color: #F0E6D2;  /* Brighter color */
     display: block;  /* Force to new line */
-    margin-bottom: 2.3rem;  /* Increased spacing after question */
+    margin-bottom: 2rem;  /* Increased spacing after question */
     padding: 0;  /* Remove padding for the bold text */
 }
 
