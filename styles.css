@@ -381,9 +381,9 @@ body {
 
 .letter-content p {
     color: #CDBE91;
-    line-height: 2;    /* Reduced from 2.2 to 2 */
+    line-height: 1.5;    /* Reduced from 2 to 1.5 */
     font-size: 1.3rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.3rem;
     padding: 0 0.5rem;
 }
 
@@ -606,4 +606,94 @@ body {
     width: 80px;
     height: 80px;
     object-fit: contain;
+}
+
+/* Add responsive container adjustments */
+@media screen and (max-width: 768px) {
+    .container {
+        height: 100dvh; /* dynamic viewport height for mobile */
+    }
+
+    /* Adjust logo size for mobile */
+    .logo-screen img {
+        width: calc(300px * 1.2); /* Smaller on mobile */
+        max-width: 90vw;
+    }
+
+    /* Adjust chest video sizing */
+    .chest-video-container {
+        width: 90vw;
+        max-width: 450px;
+        margin-left: 0;
+    }
+
+    #chestOutro.active {
+        width: 180%;
+        margin-left: -40%;
+    }
+
+    /* Adjust gift card and letter for mobile */
+    .gift-card,
+    .letter-content {
+        width: 90vw;
+        max-width: 400px;
+        padding: 1.5rem;
+    }
+
+    /* Adjust card wrapper for mobile */
+    .card-wrapper {
+        width: 90vw;
+        max-width: 500px;
+        height: auto;
+        min-height: 600px;
+    }
+
+    /* Adjust text sizes for mobile */
+    .letter-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .letter-content p {
+        font-size: 1.1rem;
+    }
+
+    /* Adjust button sizes and positions */
+    .love-button {
+        bottom: 10px;
+        right: 10px;
+        padding: 0.6rem 1.4rem;
+        font-size: 0.8rem;
+    }
+
+    .flip-button {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .flip-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Additional adjustments for very small screens */
+@media screen and (max-width: 380px) {
+    .logo-screen img {
+        width: calc(300px * 1);
+    }
+
+    .letter-content {
+        padding: 1rem;
+    }
+
+    .letter-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .gift-code {
+        font-size: 1rem;
+        padding: 0.8rem;
+        word-break: break-all;
+    }
 } 
