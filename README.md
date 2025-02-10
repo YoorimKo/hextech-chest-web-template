@@ -9,7 +9,7 @@ An immersive web-based gift card experience built with HTML5, CSS3, and vanilla 
 - Dynamic gift card reveal with tilt effect
 - Flip card functionality with front/back views
 - Love button with floating emote animations
-- Responsive design for mobile and desktop
+- Responsive design for desktop
 - Custom sound effects and background music
 - League of Legends-inspired UI elements and styling
 
@@ -20,7 +20,6 @@ An immersive web-based gift card experience built with HTML5, CSS3, and vanilla 
 - Custom video sequencing for chest animations
 - Responsive design using CSS media queries
 - Local storage implementation for interaction tracking
-- Touch-friendly interactions for mobile devices
 
 ## Design Elements
 
