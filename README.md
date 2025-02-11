@@ -51,4 +51,4 @@ An immersive web-based gift card experience built with HTML5, CSS3, and vanilla 
 
 ## License
 
-This project is for personal portfolio use only. All League of Legends assets and trademarks are property of Riot Games. 
+All League of Legends assets and trademarks are property of Riot Games. 
